@@ -4,6 +4,7 @@ import {HttpService} from '../../../services/http.service';
 import {Movie} from '../../../models/movie';
 import {ActivatedRoute, Router} from '@angular/router';
 import {switchMap} from 'rxjs/operators';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-movie-details',
@@ -13,7 +14,8 @@ import {switchMap} from 'rxjs/operators';
 export class MovieDetailsComponent implements OnInit {
   movieDetails: Observable<Movie>;
 
-  constructor(private http: HttpService, private route: ActivatedRoute, private router: Router) {
+  constructor(private http: HttpService, private route: ActivatedRoute, private router: Router,
+              private location: Location) {
   }
 
   ngOnInit() {
@@ -23,6 +25,7 @@ export class MovieDetailsComponent implements OnInit {
   }
 
   goToMovies() {
-    this.router.navigate(['/movies'])
+    // this.router.navigate(['/movies'])
+    this.location.back();
   }
 }

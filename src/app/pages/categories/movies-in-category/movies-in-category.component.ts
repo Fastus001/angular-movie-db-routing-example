@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
-import { HttpService } from '../../../services/http.service';
-import { Movie } from '../../../models/movie';
+import {Component, OnInit} from '@angular/core';
+import {Observable} from 'rxjs';
+import {ActivatedRoute} from '@angular/router';
+import {switchMap} from 'rxjs/operators';
+import {HttpService} from '../../../services/http.service';
+import {Movie} from '../../../models/movie';
 
 @Component({
   selector: 'app-movies-in-category',
@@ -13,7 +13,15 @@ import { Movie } from '../../../models/movie';
 export class MoviesInCategoryComponent implements OnInit {
   movies: Observable<Movie[]>;
 
-  constructor() {}
+  constructor(private http: HttpService, private route: ActivatedRoute) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    // const category = this.route.snapshot.paramMap.get('category');
+    // this.movies = this.http.getMoviesFromCategory(category);
+
+    this.movies = this.route.paramMap.pipe(
+      switchMap((params)=>
+      this.http.getMoviesFromCategory(params.get('category')))
+    );
+  }
 }

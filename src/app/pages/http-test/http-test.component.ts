@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {HttpMoviesService} from '../../services/http-movies.service';
+import {Movie} from '../../models/movie';
 
 @Component({
   selector: 'app-http-test',
@@ -13,7 +14,19 @@ export class HttpTestComponent {
     this.http.getMovies().subscribe();
   }
 
-  post() {}
+  post() {
+    const movie: Movie = {
+      country: 'Poland',
+      director: 'Marek Brodzki',
+      category: 'Fantasy',
+      plot: 'Zabójca potworów musi wybrać mniejsze zło.',
+      poster: null,
+      year: '2001',
+      title: 'Wiedźmin',
+      imdbRating: '10.0',
+    };
+    this.http.postMovie(movie).subscribe();
+  }
 
   put() {}
 

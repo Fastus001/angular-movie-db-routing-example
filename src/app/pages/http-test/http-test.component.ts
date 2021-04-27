@@ -43,7 +43,13 @@ export class HttpTestComponent {
     this.http.putMovie(movie).subscribe();
   }
 
-  patch() {}
+  patch() {
+    const movie: Partial<Movie> = {
+      id: '54',
+      plot: 'Geralt szuka Ciri',
+    };
+    this.http.patchMovie(movie).subscribe();
+  }
 
   delete() {}
 }

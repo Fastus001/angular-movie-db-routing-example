@@ -32,4 +32,9 @@ export class HttpMoviesService {
     return this.http.put<Movie>(this.url + '/' + movie.id, movie)
       .pipe(tap(console.log));
   }
+
+  patchMovie(movie: Partial<Movie>): Observable<Movie> {
+    return this.http.patch<Movie>(this.url + '/' + movie.id, movie)
+      .pipe(tap(console.log));
+  }
 }

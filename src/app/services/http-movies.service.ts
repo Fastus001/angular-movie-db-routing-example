@@ -24,6 +24,12 @@ export class HttpMoviesService {
   }
 
   postMovie(movie: Movie): Observable<Movie> {
-    return this.http.post<Movie>(this.url,movie).pipe(tap(console.log));
+    return this.http.post<Movie>(this.url,movie)
+      .pipe(tap(console.log));
+  }
+
+  putMovie(movie: Movie): Observable<Movie> {
+    return this.http.put<Movie>(this.url + '/' + movie.id, movie)
+      .pipe(tap(console.log));
   }
 }

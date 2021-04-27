@@ -28,7 +28,20 @@ export class HttpTestComponent {
     this.http.postMovie(movie).subscribe();
   }
 
-  put() {}
+  put() {
+    const movie: Movie = {
+      id: '54',
+      country: 'Poland',
+      director: 'Marek Brodzki',
+      category: 'Fantasy',
+      plot: 'Zabójca potworów musi wybrać mniejsze zło.',
+      poster: null,
+      year: '2001',
+      title: 'Wiedźmin 2',
+      imdbRating: '10.0',
+    };
+    this.http.putMovie(movie).subscribe();
+  }
 
   patch() {}
 

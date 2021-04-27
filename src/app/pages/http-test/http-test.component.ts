@@ -8,7 +8,10 @@ import {Movie} from '../../models/movie';
   styleUrls: ['./http-test.component.css'],
 })
 export class HttpTestComponent {
-  constructor(private  http: HttpMoviesService) {}
+  errorMessage: string;
+
+  constructor(private http: HttpMoviesService) {
+  }
 
   get() {
     this.http.getMovies().subscribe();
@@ -53,5 +56,12 @@ export class HttpTestComponent {
 
   delete() {
     this.http.deleteMovie('54').subscribe();
+  }
+
+  error() {
+    this.http.makeError().subscribe({error: (err: string) => {
+      this.errorMessage = err;
+      setTimeout(()=>this.errorMessage = null,3000);
+      }});
   }
 }

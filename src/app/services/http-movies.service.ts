@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {Movie} from '../models/movie';
 import {catchError, tap} from 'rxjs/operators';
@@ -77,5 +77,14 @@ export class HttpMoviesService {
         console.log(res.headers.get('Pragma'));
       }),
       );
+  }
+
+  params(): Observable<Movie> {
+    const myParams = new HttpParams()
+      .set('_sort', 'title')
+      .set('_order', 'desc');
+
+    return this.http.get<Movie[]>(this.url, {params: myParams})
+      .pipe(tap(console.log));
   }
 }

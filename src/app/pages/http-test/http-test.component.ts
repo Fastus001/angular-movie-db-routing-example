@@ -64,4 +64,8 @@ export class HttpTestComponent {
       setTimeout(()=>this.errorMessage = null,3000);
       }});
   }
+
+  headers() {
+    this.http.headers().subscribe();
+  }
 }

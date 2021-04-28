@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {Movie} from '../models/movie';
 import {catchError, tap} from 'rxjs/operators';
@@ -56,5 +56,26 @@ export class HttpMoviesService {
       `Returned code: ${error.status} \n`
     );
     return throwError('Something bad happend; please try again later.');
+  }
+
+  headers(): Observable<HttpResponse<Movie[]>> {
+    //observe: 'response' - informuje że nie chcemy mieć dostępu tylko do body ale także do headers!!
+    const myHeaders = new HttpHeaders({
+      Authorizations: 'my_token',
+      'Content-Type': 'application/json',
+      'X-Custom-Header': 'zacznij_programowac'
+    });
+    // nagłówek z poza specyfikacji zaczynamy od Xa
+
+    return this.http.get<Movie[]>(this.url, {observe: 'response', headers: myHeaders})
+      .pipe(
+        tap((res)=> {
+        console.log(res.headers.keys());
+        console.log(res.headers.get('Cache-Control'));
+        console.log(res.headers.get('Content-Type'));
+        console.log(res.headers.get('Expires'));
+        console.log(res.headers.get('Pragma'));
+      }),
+      );
   }
 }

@@ -15,4 +15,7 @@ export class AddMovieComponent implements OnInit {
     this.model = {title: 'Jakiś film'};
   }
 
+  send() {
+    console.log(this.model);
+  }
 }

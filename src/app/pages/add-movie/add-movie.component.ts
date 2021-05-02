@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Movie} from '../../models/movie';
+import {HttpService} from '../../services/http.service';
 
 @Component({
   selector: 'app-add-movie',
@@ -9,9 +10,14 @@ import {Movie} from '../../models/movie';
 export class AddMovieComponent implements OnInit {
 
   model: Partial<Movie> = {};
-  constructor() { }
+  categories: string[] = [];
+  years: string[] = [];
+
+  constructor(private http: HttpService) { }
 
   ngOnInit(): void {
+    this.http.getCategories().subscribe((categories) => this.categories = categories);
+    this.http.getYears().subscribe((years) => this.years = years);
   }
 
   send() {

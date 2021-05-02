@@ -2,8 +2,18 @@
   <form class="container" (ngSubmit)="send()" #form="ngForm">
     <div class="row">
       <div class="input-field col s8">
-        <input type="text" id="title" [(ngModel)]="model.title" name="title" required>
+        <input type="text" id="title" [(ngModel)]="model.title" name="title" required #title="ngModel"
+               minlength="2"
+        (input)="printModel(title)">
         <label for="title">Title</label>
+        <ng-container *ngIf="title.invalid && title.touched">
+          <div class="card-panel red darken-1" *ngIf="title.errors.required">
+            Field required
+          </div>
+          <div class="card-panel red darken-1" *ngIf="title.errors.minlength">
+            Text is too short
+          </div>
+        </ng-container>
       </div>
     </div>
     <div class="row">
